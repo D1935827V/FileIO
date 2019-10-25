@@ -1,22 +1,20 @@
 #include <stdio.h>
 
-int main() {
-   
-    int x = 2;
-   FILE *fp;
-   char buff[255];
+int main(int argc, char* argv[])
+{
+    FILE* file = fopen("/Users/1855144/Documents/bruh.txt", "r"); /* should check the result */
+    char line[256];
 
-   fp = fopen("/Users/1935827/Documents/bruh.txt", "r");
-   fscanf(fp, "%s", buff);
-   printf("1 : %s\n", buff );
+    while (fgets(line, sizeof(line), file)) {
+        /* note that fgets don't strip the terminating \n, checking its
+           presence would allow to handle lines longer that sizeof(line) */
+        printf("%s", line);
+    }
+    /* may check feof here to make a difference between eof and io failure -- network
+       timeout for instance */
 
-    while (x < 100){
-   fgets(buff, 255, (FILE*)fp);
-   printf("%i: %s\n",x, buff);
-        x++;
-}
+    fclose(file);
 
-   fclose(fp);
-
+    return 0;
 }
 
